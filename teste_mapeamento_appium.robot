@@ -5,7 +5,7 @@ Library  AppiumLibrary
 *** Variables ***
 ${AUTOMATION_NAME}    UiAutomator2
 ${PLATFORM_NAME}      Android
-${APP_PACKAGE}                com.android.chrome
+${APP_PACKAGE}                com.quati.listadetarefa
 ${DEVICE_UDID}                emulator-5554
 ${TIMEOUT}                    90000
 ${TEXT}                teste

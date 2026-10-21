@@ -1,0 +1,3 @@
+robotframework>=7.4,<8.0
+robotframework-appiumlibrary>=3.2,<4.0
+robotcode[analyze,runner]>=2.7,<3.0

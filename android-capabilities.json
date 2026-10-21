@@ -2,6 +2,6 @@
   "platformName": "Android",
   "appium:newCommandTimeout": 3000,
   "appium:automationName": "UIAutomator2",
-  "appium:appPackage": "com.android.chrome",
+  "appium:appPackage": "com.quati.listadetarefa",
   "appium:udid": "emulator-5554"
 }
