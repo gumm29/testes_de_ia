@@ -1,0 +1,19 @@
+# Agentes customizados
+.agents/
+
+# VS Code
+.vscode/
+
+# Arquivos HTML
+*.html
+*.htm
+*.xhtml
+
+# Arquivos XML
+*.xml
+*.xsd
+*.xsl
+*.svg
+
+# Documentacao de regras locais
+REGRA_DE_COMMIT.md
