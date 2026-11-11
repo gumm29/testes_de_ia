@@ -14,7 +14,7 @@ Login Com Credenciais Validas
     Quando Preencher Email De Login    Gustavo
     E Preencher Senha De Login    123456
     E Tocar Em Entrar
-    Então A Lista De Tarefas Deve Estar Visivel
+    Então Aguardar Lista De Tarefas Visivel
 
 Login Sem Preencher Campos
     [Documentation]    Impede o acesso quando email e senha estao vazios.
