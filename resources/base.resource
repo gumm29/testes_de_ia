@@ -1,5 +1,5 @@
 *** Settings ***
-Library    AppiumLibrary
+Library    AppiumLibrary    timeout=15s
 
 *** Variables ***
 ${APPIUM_URL}             http://127.0.0.1:4723
@@ -22,3 +22,9 @@ Abrir Aplicativo
 
 Fechar Aplicativo
     Run Keyword And Ignore Error    Close Application
+
+Aguardar Elementos Visiveis
+    [Arguments]    @{locators}
+    FOR    ${locator}    IN    @{locators}
+        Wait Until Element Is Visible    ${locator}
+    END
