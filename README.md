@@ -43,6 +43,17 @@ robot --dryrun --pythonpath resources --output NONE --log NONE --report NONE tes
 
 Os relatorios HTML e o arquivo XML sao gravados em `results/`.
 
+## Atualizar a `main` apos um merge
+
+Depois que a pull request for integrada, volte para a branch principal e atualize-a por fast-forward:
+
+```sh
+git switch main
+git pull --ff-only origin main
+```
+
+O `--ff-only` evita criar um commit de merge local durante a sincronizacao.
+
 ## Suites
 
 | Arquivo | Cobertura |
