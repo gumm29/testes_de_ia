@@ -1,37 +1,64 @@
-# testes_de_ia
+# Automacao Android - Lista de Tarefas
 
-## Notificacoes de novos pull requests
+Projeto de testes de interface para o aplicativo Android Lista de Tarefas, usando Robot Framework, AppiumLibrary e Page Objects.
 
-O workflow `.github/workflows/notify-new-pr.yml` envia um email quando um pull request e aberto neste repositorio. Ele comeca a monitorar depois que o workflow estiver na branch padrao `main`.
+## Requisitos
 
-Configure estes repository secrets em **Settings > Secrets and variables > Actions**:
+- Python 3.10 ou superior
+- Android SDK com `adb`
+- Emulador Android ou dispositivo conectado e autorizado para depuracao USB
+- App Lista de Tarefas instalado no dispositivo
+- Appium 2 com o driver UiAutomator2
 
-- `NOTIFY_EMAIL`: endereco que recebera os avisos.
-- `SMTP_HOST`: servidor SMTP, por exemplo `smtp.gmail.com`.
-- `SMTP_PORT`: porta SMTP, normalmente `465` ou `587`.
-- `SMTP_USERNAME`: usuario SMTP.
-- `SMTP_PASSWORD`: senha ou senha de app SMTP.
-- `SMTP_FROM`: endereco usado como remetente.
-- `SMTP_SECURE`: `true` para porta `465`; `false` para porta `587` com STARTTLS.
+## Configuracao
 
-Sem esses secrets, o workflow registra um aviso e nao tenta enviar o email.
-
-## Automacao Android
-
-O projeto Robot Framework/Appium usa Page Objects em `resources/pages/` e casos de teste em `tests/`.
-
-Instale as dependencias:
+Instale as dependencias Python:
 
 ```sh
 python3 -m pip install -r requirements.txt
 ```
 
-Com o emulador conectado e o servidor Appium ativo em `http://127.0.0.1:4723`, execute:
+Inicie o servidor Appium e confirme que o dispositivo esta disponivel:
 
 ```sh
-robotcode discover tests
-robotcode analyze code
-robotcode robot
+appium
+adb devices
 ```
 
-As capabilities padrao estao em `resources/base.resource` e podem ser sobrescritas pela linha de comando do Robot Framework, por exemplo `--variable DEVICE_UDID:emulator-5554`. O teste de fumaça valida a tela de login observada no aplicativo. Os cenarios de tarefas e prioridades ficam ignorados ate haver uma forma de autenticar e mapear essas telas.
+O projeto usa por padrao o servidor `http://127.0.0.1:4723`, o dispositivo `emulator-5554` e o pacote Android `com.quati.listadetarefa`. Esses valores e as demais capabilities estao centralizados em `resources/base.resource`.
+
+## Executar os testes
+
+Na raiz do projeto:
+
+```sh
+robot --pythonpath resources --outputdir results tests/
+```
+
+Para validar a estrutura das suites sem interagir com o dispositivo:
+
+```sh
+robot --dryrun --pythonpath resources --output NONE --log NONE --report NONE tests/
+```
+
+Os relatorios HTML e o arquivo XML sao gravados em `results/`.
+
+## Suites
+
+| Arquivo | Cobertura |
+| --- | --- |
+| `tests/login.robot` | Login com credenciais validas |
+| `tests/smoke_app.robot` | Elementos principais da tela de login |
+| `tests/prioridades.robot` | Criacao sem prioridade e com prioridades verde, amarela e vermelha |
+| `tests/tarefas.robot` | Criacao e remocao de tarefa |
+
+Atualmente, a suite contem oito cenarios. Os testes de interface exigem que o aplicativo e o servidor Appium estejam ativos no dispositivo configurado.
+
+## Estrutura
+
+- `resources/base.resource`: configuracao e ciclo de vida da sessao Appium.
+- `resources/pages/`: seletores e acoes organizados por tela.
+- `tests/`: cenarios Robot Framework em portugues.
+- `tarefas/`: descricoes dos cenarios de origem.
+- `robot.toml`: caminhos e configuracao padrao do RobotCode.
+- `requirements.txt`: dependencias Python do projeto.
