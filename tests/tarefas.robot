@@ -1,26 +1,35 @@
+Language: pt-BR
 *** Settings ***
-Documentation    Cenários de tarefas; aguardam autenticação e mapeamento da interface.
+Documentation    Cenarios de criacao e remocao de tarefas.
+Resource    ../resources/base.resource
+Resource    ../resources/pages/login_page.resource
 Resource    ../resources/pages/lista_tarefas.resource
 Resource    ../resources/pages/formulario_tarefa.resource
+Test Teardown    Fechar Aplicativo
 
 *** Test Cases ***
 Criar Tarefa
-    [Documentation]    Cadastra uma tarefa e verifica sua presença na lista.
-    [Tags]    tarefas    pendente-mapeamento
-    Preencher Titulo Da Tarefa    Tarefa automatizada
-    Salvar Tarefa
-
-Concluir Tarefa Existente
-    [Documentation]    Marca como concluída uma tarefa existente.
-    [Tags]    tarefas    pendente-mapeamento
-    Concluir Tarefa    Tarefa automatizada
-
-Editar Titulo Da Tarefa
-    [Documentation]    Altera o título de uma tarefa existente.
-    [Tags]    tarefas    pendente-mapeamento
-    Editar Tarefa    Tarefa automatizada    Tarefa atualizada
+    [Documentation]    Cadastra uma tarefa e verifica sua presenca na lista.
+    [Tags]    tarefas    criar
+    Dado Abrir Aplicativo E Autenticar
+    E Aguardar Lista De Tarefas Visivel
+    E Clique em Adicionar Tarefa
+    E Aguardar Formulario De Tarefa Visivel
+    E Preencher Titulo Da Tarefa    Tarefa automatizada
+    E Preencher Descricao Da Tarefa    Descricao da tarefa automatizada
+    E Salvar Tarefa
+    E Aguardar Lista De Tarefas Visivel
+    Então Tarefa Deve Estar Na Lista    Tarefa automatizada
 
 Remover Tarefa Da Lista
-    [Documentation]    Remove uma tarefa e verifica sua ausência na lista.
-    [Tags]    tarefas    pendente-mapeamento
-    Remover Tarefa    Tarefa automatizada
+    [Documentation]    Cria uma tarefa e a remove pelo icone de lixeira correspondente.
+    [Tags]    tarefas    remover
+    Dado Abrir Aplicativo E Autenticar
+    E Aguardar Lista De Tarefas Visivel
+    E Clique em Adicionar Tarefa
+    E Aguardar Formulario De Tarefa Visivel
+    E Preencher Titulo Da Tarefa    Tarefa para remover
+    E Preencher Descricao Da Tarefa    Tarefa criada para validar remocao
+    E Salvar Tarefa
+    E Aguardar Lista De Tarefas Visivel
+    Remover Tarefa    Tarefa para remover
